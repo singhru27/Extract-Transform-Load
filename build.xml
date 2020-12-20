@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<project name="cs127etl" default="compile" basedir=".">
+	<property name="build.dir" location="build" />
+	<property name="build.classes.dir" location="${build.dir}/bin" />
+	<property name="source.dir" location="src" />
+	<property name="libraries.dir" location="lib" />
+	<property name="ant.build.javac.source" value="1.8"/>
+	<property name="ant.build.javac.target" value="1.8"/>
+
+	<path id="project.classpath">
+		<pathelement location="${build.classes.dir}" />
+		<fileset dir="${libraries.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="compile" depends="prepare">
+		<javac srcdir="${source.dir}" destdir="${build.classes.dir}" includeantruntime="false" debug="true" debuglevel="lines,vars,source">
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
+	<target name="prepare">
+		<mkdir dir="${build.classes.dir}" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="test" depends="compile">
+		<junit printsummary="yes">
+			<classpath refid="project.classpath" />
+			<formatter type="plain" usefile="false" />
+			<test name="edu.brown.cs.cs127.etl.tester.ETLTester"/>
+		</junit>
+	</target>
+
+	<!-- <target name="ta-test" depends="compile">
+		<junit printsummary="yes">
+			<classpath refid="project.classpath" />
+			<formatter type="plain" usefile="false" />
+			<test name="edu.brown.cs.cs127.etl.tester.ETLTATester"/>
+		</junit>
+	</target> -->
+</project>

@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+COMPILED=0
+ant compile > /dev/null 2>&1 && COMPILED=1
+
+# If we failed to compile, run it again in non-silent mode
+if [ "$COMPILED" -eq 0 ]
+then
+	ant compile
+else
+	java -cp 'build/bin:lib/*' edu.brown.cs.cs127.etl.query.EtlQueryController "$@"
+fi

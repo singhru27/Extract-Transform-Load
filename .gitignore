@@ -1,0 +1,6 @@
+**/build
+data.db
+ETL_Part1.pdf
+.classpath
+**/.settings
+.project
